@@ -2,6 +2,4 @@ include <stdio.h>
 
 int main(){
   //Request input for menu options
-  printf("Hello, this is a decoder-encoder program.\nplease choose one of the following menu options:");
-  printf("1: Encode text using ceiser\n2:Decode text using ceiser and key\n.....");
 }
