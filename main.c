@@ -21,6 +21,7 @@ to execute code required to encript/decript information.
 void encripRotation(char String1[], int key);
 void decripRotation(char String1[], int key);
 void encriptSubstitution(char String1[], char sub[]);
+void decripSubstitution(char String1[], char sub[]);
 
 
 
@@ -29,14 +30,26 @@ void encriptSubstitution(char String1[], char sub[]);
 //TODO: hard code file I/O, usese # to symbolise key
 int main(){
     //Declare file pointers
+    //FILE *Input;
+
+    //Input = fopen("Input", "r");
 
     int menuChoice = 3;//This will be used to store users menu choice
-    int key = 20;
-    char String1[10000];
-    char Sub[26];
+    int key = 0;
+    char String1[10000]={66,69,78};
+    char Sub[26]={90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65};
+    char waste[100];
+
+    //fscanf(Input, "%d", &menuChoice);
+
+    //fscanf(Input, "%d", &key);
+
+    //fscanf(Input, "%[^\n]s", &String1);
+
+    //fscanf(Input, "%s", &Sub);
+
     //scanf("%d\n", &menuChoice);
     //scanf("%d\n", &key);
-    scanf("%[^\n]s", &String1);
 
 
     //Following changes strings to uppercase
@@ -58,20 +71,19 @@ int main(){
         //Encryption of a message with a substitution cipher given message text and alphabet substitution
         case 3: encriptSubstitution(String1, Sub);
             break;
-        case 4://Decryption of a message encrypted with a substitution cipher given cipher text and substitutions
-
+        //Decryption of a message encrypted with a substitution cipher given cipher text and substitutions
+        case 4: decripSubstitution(String1, Sub);
             break;
-        case 5://Decryption of a message encrypted with a rotation cipher given cipher text only
-
+        //Decryption of a message encrypted with a rotation cipher given cipher text only
+        case 5:
             break;
-        case 6://Decryption of a message encrypted with a substitution cipher given cipher text only
-
+        //Decryption of a message encrypted with a substitution cipher given cipher text only
+        case 6:
             break;
         default:
-
             break;
     }
-
+    //fclose(Input);
     return 0;
 }
 
@@ -171,6 +183,18 @@ void encriptSubstitution(char String1[], char sub[]){
         case 26: String1[count]=sub[25];
             break;
         default: break;
+        }
+    }
+    printf("%s", String1);
+}
+//----------------------------------------------------------------------------------------------------------------------------------
+/**
+This function executes code that takes static string input and decrips using substitution string.
+
+*/
+void decripSubstitution(char String1[], char sub[]){
+    for(int count = 0; count<10000; count++){
+        //if string1 is equal to a characte in sub, it becomes sub pointer + 65
         }
     }
     printf("%s", String1);
