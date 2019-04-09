@@ -26,8 +26,8 @@ void decripRotation(char String1[], int key);
 //TODO: scanf is currently being used as a debugger
 //TODO: hard code file I/O, usese # to symbolise key
 int main(){
-    int menuChoice = 1;//This will be used to store users menu choice
-    int key = 2;
+    int menuChoice = 2;//This will be used to store users menu choice
+    int key = 20;
     char String1[100];
     //scanf("%d\n", &menuChoice);
     //scanf("%d\n", &key);
@@ -91,10 +91,15 @@ This function executes code that takes static string input and decripts using cy
 */
 void decripRotation(char String1[], int key){
     //E(m) = (m+k)mod26
+    int add = 0;
     for(int count = 0; count<100; count++){
-        if(String1[count]>=65&&String1[count]<=90){
-            String1[count] = 65+(((String1[count])-65)-key)%26;
+        if((String1[count]-65)-key<0){
+            add = 26;
         }
+        if(String1[count]>=65&&String1[count]<=90){
+            String1[count] = 65+(((String1[count])-65)-key)%26 + add;
+        }
+        add = 0;
     }
     printf("%s", String1);
 }
