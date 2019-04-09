@@ -26,30 +26,20 @@ void decripSubstitution(char String1[], char sub[]);
 
 
 //----------------------------------------------------------------------------------------------------------------------------------
+
 //TODO: scanf is currently being used as a debugger
 //TODO: hard code file I/O, usese # to symbolise key
+
 int main(){
     //Declare file pointers
     //FILE *Input;
 
     //Input = fopen("Input", "r");
 
-    int menuChoice = 3;//This will be used to store users menu choice
+    int menuChoice = 4;//This will be used to store users menu choice
     int key = 0;
-    char String1[10000]={66,69,78};
-    char Sub[26]={90,89,88,87,86,85,84,83,82,81,80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65};
-    char waste[100];
-
-    //fscanf(Input, "%d", &menuChoice);
-
-    //fscanf(Input, "%d", &key);
-
-    //fscanf(Input, "%[^\n]s", &String1);
-
-    //fscanf(Input, "%s", &Sub);
-
-    //scanf("%d\n", &menuChoice);
-    //scanf("%d\n", &key);
+    char String1[10000] = "WTFPQDOF NGXFU";
+    char Sub[26] = "QWERTYUIOPASDFGHJKLZXCVBNM";
 
 
     //Following changes strings to uppercase
@@ -195,6 +185,11 @@ This function executes code that takes static string input and decrips using sub
 void decripSubstitution(char String1[], char sub[]){
     for(int count = 0; count<10000; count++){
         //if string1 is equal to a characte in sub, it becomes sub pointer + 65
+        for(int count2 = 0; count2<26; count2++){
+            if(String1[count]==sub[count2]){
+                String1[count]=count2 + 65;
+                count2 =100;
+            }
         }
     }
     printf("%s", String1);
