@@ -3,13 +3,69 @@ User: Benjamin Young
 Student ID: c3330653
 Email: BenjaminYoung7198@gmail.com
 NOTE: The code has been editted on codeblocks and committed onto github
-Method List:
+//-------------------------------------------------------------------------------------------------------------------------------------
+Program User Interface:(repeated in Input file)
+ Menu options done through header file Menu.h:
+    -Rotation:
+        Enter (1) to encript message
+        Enter (2) to decript message
+    -Substitution:
+        Enter (3) to encript message
+        Enter (4) to decript message
+    -Rotation no key:
+        Enter (5) to decrypt
+ The Input file data needs to be formated as follows:
+1       #[ROTATION KEY]
+2       [TEXT TO BE TRANSLATED]
+3       [SUBSTITUTION KEY]
+
+    Rotation Key:
+    -Can be any integer. Will be moded by 26 and made positive
+
+    Substitution key:
+    -The substitution key needs to be exactly 26 characters long, can be upper or lowercase.
+    -Should include one of every character in the alfabet, and no spaces.
+    -Characters replace respective characters of standard alphabetical order.
+
+    Cipher text:
+    -The cipher text can be upto 10,000 charactes long, and can be upper or lower case.
+    -Will always be printed in uppercase
+
+    OUTPUT:
+    -Printed in file Output and on terminal
+//--------------------------------------------------------------------------------------------------------------------------------
+Program Description:
+    The Program requires the following header files:
+        -stdio.h
+        -string.h
+        -Menu.h
+            This headder file contains the function 'menu' at which requests the user input shown above
+    Function/Method List:
+        -int main()
+            -The main function initialises Input file, reads data. Any strings containing lowercase letters
+            are then modified such that the letters are capitalised. Rotation key is moddified to remain within
+            0-25 range.
+
+            -menu() (Menu.h) is then executed within switch condition, at which it returns an
+            integer corresponding to the users input.
+
+            -The returned integer is then pased through the switch statement that executes the respective function
+
+        -void encrypRotation(char String1[], int key);
+            -Takes String 'String1', which is the read string from Input file
+            -Takes rotation key, which is an integer representing the rotaion of the cipher
+            -Output file is initialised here.
+            -All char values within 'String1' are modified accordingly to the key value
+            -Resulting String is printed to terminal
+
+        -void decrypRotation(char String1[], int key);
+            -Takes same arguments as encrypRotation.
+            -Output file is initialised here.
+            -All char values within 'String1' are modified accordingly to the key value,
+             however this is done in reverse to the encrypRotation function.
+            -Resulting String is printed to terminal.
 
 
-note if stdio is used loss of marks will occur
-TODO: Use common comments and pseudo to structure program
-TODO: Use functions to run respective menu options, and functions within those
-to execute code required to encript/decript information.
 */
 
 #include <stdio.h>
@@ -18,11 +74,11 @@ to execute code required to encript/decript information.
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
-void encripRotation(char String1[], int key);
-void decripRotation(char String1[], int key);
-void encriptSubstitution(char String1[], char sub[]);
-void decripSubstitution(char String1[], char sub[]);
-void decripRotNoKey(char String1[]);
+void encrypRotation(char String1[], int key);
+void decrypRotation(char String1[], int key, int itter);
+void encryptSubstitution(char String1[], char sub[]);
+void decrypSubstitution(char String1[], char sub[]);
+void decrypRotNoKey(char String1[]);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -69,19 +125,19 @@ int main(){
     //Switch Statement to determine which function to run
     switch(menu()){
         //Encryption of a message with a rotation cipher given the message text and rotation amoun
-        case 1: encripRotation(String1, key);
+        case 1: encrypRotation(String1, key);
             break;
         //Decryption of a message encrypted with a rotation cipher given cipher text and rotation amount
-        case 2: decripRotation(String1, key);
+        case 2: decrypRotation(String1, key, 1);
             break;
         //Encryption of a message with a substitution cipher given message text and alphabet substitution
-        case 3: encriptSubstitution(String1, Sub);
+        case 3: encryptSubstitution(String1, Sub);
             break;
         //Decryption of a message encrypted with a substitution cipher given cipher text and substitutions
-        case 4: decripSubstitution(String1, Sub);
+        case 4: decrypSubstitution(String1, Sub);
             break;
         //Decryption of a message encrypted with a rotation cipher given cipher text only
-        case 5: decripRotNoKey(String1);
+        case 5: decrypRotNoKey(String1);
             break;
         //Decryption of a message encrypted with a substitution cipher given cipher text only
         case 6:
@@ -99,7 +155,7 @@ This function executes code that takes static string input and encripts using cy
 
 */
 
-void encripRotation(char String1[], int key){
+void encrypRotation(char String1[], int key){
     //E(m) = (m+k)mod26
     FILE *Output;
     Output = fopen("Output", "w");
@@ -108,8 +164,8 @@ void encripRotation(char String1[], int key){
             String1[count] = 65+(((String1[count])-65)+key)%26;
         }
     }
-    printf("Encription: \n");
-    printf("%s", String1);
+    printf("Encryption: \n");
+    printf("%s\n", String1);
     fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -117,7 +173,7 @@ void encripRotation(char String1[], int key){
 This function executes code that takes static string input and decripts using cypher key.
 
 */
-void decripRotation(char String1[], int key){
+void decrypRotation(char String1[], int key, int itter){
     //E(m) = (m+k)mod26
     FILE *Output;
     Output = fopen("Output", "w");
@@ -131,16 +187,18 @@ void decripRotation(char String1[], int key){
         }
         add = 0;
     }
-    printf("Decription: \n");
-    printf("%s", String1);
-    fprintf(Output, "%s", String1);
+    printf("Decryption: \n");
+    printf("%s\n", String1);
+    if(itter==1){
+        fprintf(Output, "Decription:\n%s", String1);
+    }
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
 This function executes code that takes static string input and encrips using substitution string.
 
 */
-void encriptSubstitution(char String1[], char sub[]){
+void encryptSubstitution(char String1[], char sub[]){
     FILE *Output;
     Output = fopen("Output", "w");
     for(int count = 0; count<10000; count++){
@@ -200,8 +258,8 @@ void encriptSubstitution(char String1[], char sub[]){
         default: break;
         }
     }
-    printf("Encription: \n");
-    printf("%s", String1);
+    printf("Encryption: \n");
+    printf("%s\n", String1);
     fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -209,7 +267,7 @@ void encriptSubstitution(char String1[], char sub[]){
 This function executes code that takes static string input and decrips using substitution string.
 
 */
-void decripSubstitution(char String1[], char sub[]){
+void decrypSubstitution(char String1[], char sub[]){
     FILE *Output;
     Output = fopen("Output", "w");
     for(int count = 0; count<strlen(String1); count++){
@@ -221,8 +279,8 @@ void decripSubstitution(char String1[], char sub[]){
             }
         }
     }
-    printf("Decription: \n");
-    printf("\n%s", String1);
+    printf("Decryption: \n");
+    printf("%s\n", String1);
     fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -230,12 +288,17 @@ void decripSubstitution(char String1[], char sub[]){
 This function executes code that takes static string input and decrips through rotation method.
 
 */
-void decripRotNoKey(char String1[]){
+void decrypRotNoKey(char String1[]){
     //To do this find most common letter, then suggest its e, apply same rotation to other texts
     int key = 0;
+    int key2 = 0;
     int alphabet[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    char alphabetChar[26] = {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90};
     int biggest = 0;
-    for(int count = 0; count<10000; count++){
+    int biggest2 = 0;
+    int biggestCount=0;
+    int biggestCount2 = 0;
+    for(int count = 0; count<=strlen(String1); count++){
         switch (String1[count]-64){
         case 1: alphabet[0]+=1;
             break;
@@ -247,7 +310,7 @@ void decripRotNoKey(char String1[]){
             break;
         case 5: alphabet[4]+=1;
             break;
-        case 6: alphabet[5]+=1;
+        case 6: alphabet[5]+=1;//
             break;
         case 7: alphabet[6]+=1;
             break;
@@ -257,7 +320,7 @@ void decripRotNoKey(char String1[]){
             break;
         case 10: alphabet[9]+=1;
             break;
-        case 11: alphabet[1]+=1;
+        case 11: alphabet[10]+=1;
             break;
         case 12: alphabet[11]+=1;
             break;
@@ -295,17 +358,38 @@ void decripRotNoKey(char String1[]){
     //Now to see which was highest count
     for(int count = 0; count<26;count++){
         if(alphabet[count]>biggest){
-            biggest = count;
+            biggest2 = biggest;
+            biggestCount2 = biggestCount;
+            biggest = alphabet[count];
+            biggestCount = count;
+        }
+        else if(alphabet[count]>=biggest2){
+            biggest2 = alphabet[count];
+            biggestCount2 = count;
         }
     }
     for(int count = 0; count<26; count++){
-        if(biggest == count){//if 0 is biggest, A is most common, hence key == 4//if 1 is beiggest B is most common, hence key == 3//if 5 e is common key = 0, if f is common key =25
-            key = String1[count]-69;//0-22,1-23,2-24,3-25,4-0,5-1, diffrence
+        if(biggestCount == count){//if 0 is biggest, A is most common, hence key == 4//if 1 is beiggest B is most common, hence key == 3//if 5 e is common key = 0, if f is common key =25
+            key = alphabetChar[count]-69;//0-22,1-23,2-24,3-25,4-0,5-1, diffrence
+        }
+        if(biggestCount2 == count){
+            key2 = alphabetChar[count]-69;
         }
     }
     if(key<0){
         key = key + 26;
     }
-    decripRotation(String1,key);
+    if(key2<0){
+        key2 = key2 + 26;
+    }
+
+    char String2[10000];
+
+    for(int count = 0; count<strlen(String1);count++){
+        String2[count] = String1[count];
+    }
+    decrypRotation(String1,key, 1);
+    printf("Decryption attempt 2:\n\n");
+    decrypRotation(String2,key2, 2);
 }
 
