@@ -14,6 +14,7 @@ to execute code required to encript/decript information.
 
 #include <stdio.h>
 #include <string.h>
+#include "Menu.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -21,6 +22,7 @@ void encripRotation(char String1[], int key);
 void decripRotation(char String1[], int key);
 void encriptSubstitution(char String1[], char sub[]);
 void decripSubstitution(char String1[], char sub[]);
+void decripRotNoKey(char String1[]);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,15 +31,14 @@ int main(){
     FILE *Input;
     //Associating "Input" with input file as a refrence
     Input = fopen("Input", "r");
-
     //Variables are declared
-    int menuChoice = 0;
     int key;
     char String1[10000];//Texts to be translated
     char Sub[27];//Key for substitution encription/decription
     char waste;//Used as a way to tet i/o working
     //Input /File input
-    fscanf(Input, "%d\n", &menuChoice);
+    //printf("Rotation:\nEnter (1) to encript message\nEnter (2) to decript message\nSubstitution:\nEnter (3) to encript message\nEnter (4) to decript message\n");
+    //scanf("%d", &menuChoice);
     fscanf(Input, "%c", &waste);
     fscanf(Input, "%d", &key);
     fscanf(Input, "%c", &waste);
@@ -66,8 +67,7 @@ int main(){
         key = key + 26;
     }
     //Switch Statement to determine which function to run
-    switch(menuChoice){
-
+    switch(menu()){
         //Encryption of a message with a rotation cipher given the message text and rotation amoun
         case 1: encripRotation(String1, key);
             break;
@@ -226,4 +226,11 @@ void decripSubstitution(char String1[], char sub[]){
     fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
+/**
+This function executes code that takes static string input and decrips through rotation method.
+
+*/
+void decripRotNoKey(char String1[]){
+
+}
 
