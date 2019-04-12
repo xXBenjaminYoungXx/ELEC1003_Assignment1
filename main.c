@@ -2,9 +2,7 @@
 User: Benjamin Young
 Student ID: c3330653
 Email: BenjaminYoung7198@gmail.com
-NOTE: The code has been editted on codeblocks and committed on github
--UPPERCASE should be only input, (ADV: turn all cases into uppercase if lower case detected.)
--
+NOTE: The code has been editted on codeblocks and committed onto github
 Method List:
 
 
@@ -24,41 +22,50 @@ void decripRotation(char String1[], int key);
 void encriptSubstitution(char String1[], char sub[]);
 void decripSubstitution(char String1[], char sub[]);
 
-
-
 //----------------------------------------------------------------------------------------------------------------------------------
-
-//TODO: scanf is currently being used as a debugger
-//TODO: hard code file I/O, usese # to symbolise key
 
 int main(){
     //Declare file pointers
     FILE *Input;
-
+    //Associating "Input" with input file as a refrence
     Input = fopen("Input", "r");
 
-    int menuChoice = 4;//This will be used to store users menu choice
+    //Variables are declared
+    int menuChoice = 0;
     int key;
-    char String1[10000];
-    char Sub[26];
-    char waste;
-    scanf("%d", &menuChoice);
+    char String1[10000];//Texts to be translated
+    char Sub[27];//Key for substitution encription/decription
+    char waste;//Used as a way to tet i/o working
+    //Input /File input
+    fscanf(Input, "%d\n", &menuChoice);
     fscanf(Input, "%c", &waste);
     fscanf(Input, "%d", &key);
-    fscanf(Input, "%c", &waste);//Coulndn't find a way around
+    fscanf(Input, "%c", &waste);
     fgets(String1, 10000, Input);
-    fgets(Sub, 26, Input);
-
-    //Following changes strings to uppercase
+    fgets(Sub, 27, Input);
+    /*printf("%d\n", menuChoice);
+    printf("%d\n", key);
+    printf("%s", String1);
+    printf("%s\n", Sub);*/
+    //Following changes 'string1' to uppercase
     for(int count = 0; count<10000; count++){
         if(String1[count]>=97&&String1[count]<=122){
             String1[count] = String1[count] - 32;
         }
     }
-
+    //Following changes 'Sub' to uppercase
+    for(int count = 0; count<27; count++){
+        if(Sub[count]>=97&&Sub[count]<=122){
+            Sub[count] = Sub[count] - 32;
+        }
+    }
+    //Allows key inputs above 26
     key = key%26;
 
-    //Switch Statement
+    if(key<0){
+        key = key + 26;
+    }
+    //Switch Statement to determine which function to run
     switch(menuChoice){
 
         //Encryption of a message with a rotation cipher given the message text and rotation amoun
@@ -94,12 +101,16 @@ This function executes code that takes static string input and encripts using cy
 
 void encripRotation(char String1[], int key){
     //E(m) = (m+k)mod26
+    FILE *Output;
+    Output = fopen("Output", "w");
     for(int count = 0; count<10000; count++){
         if(String1[count]>=65&&String1[count]<=90){
             String1[count] = 65+(((String1[count])-65)+key)%26;
         }
     }
+    printf("Encription: \n");
     printf("%s", String1);
+    fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -108,6 +119,8 @@ This function executes code that takes static string input and decripts using cy
 */
 void decripRotation(char String1[], int key){
     //E(m) = (m+k)mod26
+    FILE *Output;
+    Output = fopen("Output", "w");
     int add = 0;
     for(int count = 0; count<10000; count++){
         if((String1[count]-65)-key<0){
@@ -118,7 +131,9 @@ void decripRotation(char String1[], int key){
         }
         add = 0;
     }
+    printf("Decription: \n");
     printf("%s", String1);
+    fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -126,7 +141,8 @@ This function executes code that takes static string input and encrips using sub
 
 */
 void encriptSubstitution(char String1[], char sub[]){
-
+    FILE *Output;
+    Output = fopen("Output", "w");
     for(int count = 0; count<10000; count++){
         switch (String1[count]-64){
         case 1: String1[count]=sub[0];
@@ -184,7 +200,9 @@ void encriptSubstitution(char String1[], char sub[]){
         default: break;
         }
     }
+    printf("Encription: \n");
     printf("%s", String1);
+    fprintf(Output, "%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -192,6 +210,8 @@ This function executes code that takes static string input and decrips using sub
 
 */
 void decripSubstitution(char String1[], char sub[]){
+    FILE *Output;
+    Output = fopen("Output", "w");
     for(int count = 0; count<strlen(String1); count++){
         //if string1 is equal to a character in sub, it becomes sub pointer + 65
         for(int count2 = 0; count2<26; count2++){
@@ -201,5 +221,9 @@ void decripSubstitution(char String1[], char sub[]){
             }
         }
     }
+    printf("Decription: \n");
     printf("\n%s", String1);
+    fprintf(Output, "%s", String1);
 }
+//----------------------------------------------------------------------------------------------------------------------------------
+
