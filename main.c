@@ -15,6 +15,7 @@ to execute code required to encript/decript information.
 */
 
 #include <stdio.h>
+#include <string.h>
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -37,11 +38,14 @@ int main(){
     Input = fopen("Input", "r");
 
     int menuChoice = 4;//This will be used to store users menu choice
-    int key = 77;
+    int key;
     char String1[10000];
     char Sub[26];
-    char convert[1];
-
+    char waste;
+    scanf("%d", &menuChoice);
+    fscanf(Input, "%c", &waste);
+    fscanf(Input, "%d", &key);
+    fscanf(Input, "%c", &waste);//Coulndn't find a way around
     fgets(String1, 10000, Input);
     fgets(Sub, 26, Input);
 
@@ -53,6 +57,7 @@ int main(){
     }
 
     key = key%26;
+
     //Switch Statement
     switch(menuChoice){
 
@@ -187,7 +192,7 @@ This function executes code that takes static string input and decrips using sub
 
 */
 void decripSubstitution(char String1[], char sub[]){
-    for(int count = 0; count<10000; count++){
+    for(int count = 0; count<strlen(String1); count++){
         //if string1 is equal to a character in sub, it becomes sub pointer + 65
         for(int count2 = 0; count2<26; count2++){
             if(String1[count]==sub[count2]){
@@ -196,5 +201,5 @@ void decripSubstitution(char String1[], char sub[]){
             }
         }
     }
-    printf("%s", String1);
+    printf("\n%s", String1);
 }
