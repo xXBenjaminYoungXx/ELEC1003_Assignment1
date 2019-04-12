@@ -81,7 +81,7 @@ int main(){
         case 4: decripSubstitution(String1, Sub);
             break;
         //Decryption of a message encrypted with a rotation cipher given cipher text only
-        case 5:
+        case 5: decripRotNoKey(String1);
             break;
         //Decryption of a message encrypted with a substitution cipher given cipher text only
         case 6:
@@ -231,6 +231,81 @@ This function executes code that takes static string input and decrips through r
 
 */
 void decripRotNoKey(char String1[]){
-
+    //To do this find most common letter, then suggest its e, apply same rotation to other texts
+    int key = 0;
+    int alphabet[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    int biggest = 0;
+    for(int count = 0; count<10000; count++){
+        switch (String1[count]-64){
+        case 1: alphabet[0]+=1;
+            break;
+        case 2: alphabet[1]+=1;
+            break;
+        case 3: alphabet[2]+=1;
+            break;
+        case 4: alphabet[3]+=1;
+            break;
+        case 5: alphabet[4]+=1;
+            break;
+        case 6: alphabet[5]+=1;
+            break;
+        case 7: alphabet[6]+=1;
+            break;
+        case 8: alphabet[7]+=1;
+            break;
+        case 9: alphabet[8]+=1;
+            break;
+        case 10: alphabet[9]+=1;
+            break;
+        case 11: alphabet[1]+=1;
+            break;
+        case 12: alphabet[11]+=1;
+            break;
+        case 13: alphabet[12]+=1;
+            break;
+        case 14: alphabet[13]+=1;
+            break;
+        case 15: alphabet[14]+=1;
+            break;
+        case 16: alphabet[15]+=1;
+            break;
+        case 17: alphabet[16]+=1;
+            break;
+        case 18: alphabet[17]+=1;
+            break;
+        case 19: alphabet[18]+=1;
+            break;
+        case 20: alphabet[19]+=1;
+            break;
+        case 21: alphabet[20]+=1;
+            break;
+        case 22: alphabet[21]+=1;
+            break;
+        case 23: alphabet[22]+=1;
+            break;
+        case 24: alphabet[23]+=1;
+            break;
+        case 25: alphabet[24]+=1;
+            break;
+        case 26: alphabet[25]+=1;
+            break;
+        default: break;
+        }
+    }
+    //Now to see which was highest count
+    for(int count = 0; count<26;count++){
+        if(alphabet[count]>biggest){
+            biggest = count;
+        }
+    }
+    for(int count = 0; count<26; count++){
+        if(biggest == count){//if 0 is biggest, A is most common, hence key == 4//if 1 is beiggest B is most common, hence key == 3//if 5 e is common key = 0, if f is common key =25
+            key = String1[count]-69;//0-22,1-23,2-24,3-25,4-0,5-1, diffrence
+        }
+    }
+    if(key<0){
+        key = key + 26;
+    }
+    decripRotation(String1,key);
 }
 
