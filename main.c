@@ -32,15 +32,18 @@ void decripSubstitution(char String1[], char sub[]);
 
 int main(){
     //Declare file pointers
-    //FILE *Input;
+    FILE *Input;
 
-    //Input = fopen("Input", "r");
+    Input = fopen("Input", "r");
 
     int menuChoice = 4;//This will be used to store users menu choice
-    int key = 0;
-    char String1[10000] = "WTFPQDOF NGXFU";
-    char Sub[26] = "QWERTYUIOPASDFGHJKLZXCVBNM";
+    int key = 77;
+    char String1[10000];
+    char Sub[26];
+    char convert[1];
 
+    fgets(String1, 10000, Input);
+    fgets(Sub, 26, Input);
 
     //Following changes strings to uppercase
     for(int count = 0; count<10000; count++){
@@ -49,6 +52,7 @@ int main(){
         }
     }
 
+    key = key%26;
     //Switch Statement
     switch(menuChoice){
 
@@ -184,7 +188,7 @@ This function executes code that takes static string input and decrips using sub
 */
 void decripSubstitution(char String1[], char sub[]){
     for(int count = 0; count<10000; count++){
-        //if string1 is equal to a characte in sub, it becomes sub pointer + 65
+        //if string1 is equal to a character in sub, it becomes sub pointer + 65
         for(int count2 = 0; count2<26; count2++){
             if(String1[count]==sub[count2]){
                 String1[count]=count2 + 65;
