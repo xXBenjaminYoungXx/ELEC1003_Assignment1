@@ -1,0 +1,38 @@
+#5
+FRJWNHFS RZQYNSFYNTSFQ YJHMSTQTLD HTRUFSD YMFY XUJHNFQNEJX NS NSYJWSJY-WJQFYJI XJWANHJX FSI UWTIZHYX, BMNHM NSHQZIJ TSQNSJ FIAJWYNXNSL YJHMSTQTLNJX, XJFWHM JSLNSJ, HQTZI HTRUZYNSL, XTKYBFWJ, FSI MFWIBFWJ.
+qwertyuiopasdfghjklzxcvbnm
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+The Above data needs to be formated as follows:
+#[ROTATION KEY]
+[TEXT TO BE TRANSLATED]
+[SUBSTITUTION KEY]
+
+Menu options:
+-Rotation:
+    Enter (1) to encript message
+    Enter (2) to decript message
+-Substitution:
+    Enter (3) to encript message
+    Enter (4) to decript message
+
+Rotation Key:
+-Can be any integer. Will be moded by 26 and made positive
+
+Substitution key:
+-The substitution key needs to be exactly 26 characted long, can be upper or lowercase.
+-Should include one of every character in the alfabet, and no spaces.
+-Characters replace respective characters of standard alphabetical order.
+
+Cipher text:
+-The cipher text can be upto 10,000 charactes long, and can be upper or lower case.
+-Will always be printed in uppercase
+
+OUTPUT:
+-Printed in file Output and on terminal
+
+
+
+
+
+
+
