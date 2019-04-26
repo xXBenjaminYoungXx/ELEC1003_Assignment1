@@ -51,7 +51,7 @@ void encrypRotation(char String1[], int key){
     }
     printf("Encryption: \n");
     printf("%s\n", String1);
-    fprintf(Output, "%s", String1);
+    fprintf(Output, "Encryption:\n%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -145,7 +145,7 @@ void encryptSubstitution(char String1[], char sub[]){
     }
     printf("Encryption: \n");
     printf("%s\n", String1);
-    fprintf(Output, "%s", String1);
+    fprintf(Output, "Encryption:\n%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -157,16 +157,16 @@ void decrypSubstitution(char String1[], char sub[]){
     Output = fopen("Output", "w");
     for(int count = 0; count<strlen(String1); count++){
         //if string1 is equal to a character in sub, it becomes sub pointer + 65
-        for(int count2 = 0; count2<26; count2++){
-            if(String1[count]==sub[count2]){
-                String1[count]=count2 + 65;
-                count2 =100;
+        for(int count2 = 0; count2<26; count2++){//Look at char value String1[count], and find on sub[]
+            if(String1[count]==sub[count2]){//When found, the String1 char value then becomes the counter value
+                String1[count]=count2 + 65;//This counter value needs to be adjusted as to match ASCII values
+                count2 =100;//This is done to exit the second for loop as chr value has been matched
             }
         }
     }
     printf("Decryption: \n");
     printf("%s\n", String1);
-    fprintf(Output, "%s", String1);
+    fprintf(Output, "Decryption:\n%s", String1);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
@@ -281,9 +281,13 @@ void decrypRotNoKey(char String1[]){
     for(int count = 0; count<strlen(String1);count++){
         String2[count] = String1[count];
     }
-    decrypRotation(String1,key, 1);
+    decrypRotation(String1,key, 2);
     printf("Decryption attempt 2:\n\n");
     decrypRotation(String2,key2, 2);
+
+    FILE *Output;
+    Output = fopen("Output", "w");
+    fprintf(Output, "Decryption Attempt 1:\n%s\nDecryption Attempt 2:\n%s", String1, String2);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------

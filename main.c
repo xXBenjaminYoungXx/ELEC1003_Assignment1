@@ -110,21 +110,20 @@ int main(){
     char String1[10000];//Texts to be translated
     char Sub[27];//Key for substitution encription/decription
     char waste;//Used as a way to tet i/o working
-    //Input /File input
-    //printf("Rotation:\nEnter (1) to encript message\nEnter (2) to decript message\nSubstitution:\nEnter (3) to encript message\nEnter (4) to decript message\n");
-    //scanf("%d", &menuChoice);
+
     fscanf(Input, "%c", &waste);
     fscanf(Input, "%d", &key);
     fscanf(Input, "%c", &waste);
     fgets(String1, 10000, Input);
     fgets(Sub, 27, Input);
+
     //Following changes 'string1' to uppercase
     for(int count = 0; count<10000; count++){
         if(String1[count]>=97&&String1[count]<=122){
             String1[count] = String1[count] - 32;
         }
     }
-    //Following changes 'Sub' to uppercase
+    //Following changes 'Sub' string to uppercase
     for(int count = 0; count<27; count++){
         if(Sub[count]>=97&&Sub[count]<=122){
             Sub[count] = Sub[count] - 32;
