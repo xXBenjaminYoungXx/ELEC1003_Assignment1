@@ -180,12 +180,15 @@ void decrypRotNoKey(char String1[]){
     //To do this find most common letter, then suggest its e, apply same rotation to other texts
     int key = 0;//used for attept 1
     int key2 = 0;//used for attept 2
+    int key3 = 0;
     int alphabet[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//used to tally
     char alphabetChar[26] = {65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90};//used as standard alphabet
     int biggest = 0;//used to track biggest
     int biggest2 = 0;
+    int biggest3 = 0;
     int biggestCount=0;//used to track pointer with biggest value
     int biggestCount2 = 0;
+    int biggestCount3 = 0;
     //Tally up variable count
     for(int count = 0; count<=strlen(String1); count++){
         switch (String1[count]-64){
@@ -199,7 +202,7 @@ void decrypRotNoKey(char String1[]){
             break;
         case 5: alphabet[4]+=1;
             break;
-        case 6: alphabet[5]+=1;//
+        case 6: alphabet[5]+=1;
             break;
         case 7: alphabet[6]+=1;
             break;
@@ -244,17 +247,28 @@ void decrypRotNoKey(char String1[]){
         default: break;
         }
     }
-    //Now to see which was highest count and second highest count
+    //Now to see which was highest count, second highest count and third highest count
     for(int count = 0; count<26;count++){
         if(alphabet[count]>biggest){
+            biggest3 = biggest2;
+            biggestCount3 = biggestCount2;
+
             biggest2 = biggest;
             biggestCount2 = biggestCount;
+
             biggest = alphabet[count];
             biggestCount = count;
         }
-        else if(alphabet[count]>=biggest2){
+        else if(alphabet[count]>biggest2){
+            biggest3 = biggest2;
+            biggestCount3 = biggestCount2;
+
             biggest2 = alphabet[count];
             biggestCount2 = count;
+        }
+        else if(alphabet[count]>biggest3){
+            biggest3 = alphabet[count];
+            biggestCount3 = count;
         }
     }
     //if 0 is biggest, A is most common, hence key == 4
@@ -268,6 +282,9 @@ void decrypRotNoKey(char String1[]){
         if(biggestCount2 == count){
             key2 = alphabetChar[count]-69;
         }
+        if(biggestCount3 == count){
+            key3 = alphabetChar[count]-69;
+        }
     }
     if(key<0){
         key = key + 26;
@@ -275,19 +292,25 @@ void decrypRotNoKey(char String1[]){
     if(key2<0){
         key2 = key2 + 26;
     }
-    //Second string used as argument for second attept
+    if(key3<0){
+        key3 = key3 + 26;
+    }
+    //Second string used as argument for second attept, and third attempt
     char String2[10000];
-
+    char String3[10000];
     for(int count = 0; count<strlen(String1);count++){
         String2[count] = String1[count];
+        String3[count] = String1[count];
     }
     decrypRotation(String1,key, 2);
     printf("Decryption attempt 2:\n\n");
     decrypRotation(String2,key2, 2);
+    printf("Decryption attempt 3:\n\n");
+    decrypRotation(String3,key3, 2);
 
     FILE *Output;
     Output = fopen("Output", "w");
-    fprintf(Output, "Decryption Attempt 1:\n%s\nDecryption Attempt 2:\n%s", String1, String2);
+    fprintf(Output, "Decryption Attempt 1:\n%s\nDecryption Attempt 2:\n%s\nDecryption Attempt 3:\n%s", String1, String2, String3);
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------

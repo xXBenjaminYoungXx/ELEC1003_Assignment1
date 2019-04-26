@@ -90,7 +90,8 @@ Program Description:
              common.
             -A second key is also calculated and parsed though function.
             -First attempt is printed to terminal and Output file.
-            -Second attemp is printed to terminal.
+            -Second attemp is printed to terminal and Output file.
+            -Third attempt is printed to terminal and Output file.
 */
 
 #include <stdio.h>
