@@ -14,12 +14,13 @@ void decrypRotation(char String1[], int key, int itter);
 void encryptSubstitution(char String1[], char sub[]);
 void decrypSubstitution(char String1[], char sub[]);
 void decrypRotNoKey(char String1[]);
-void decrypSubNoKey(char String1[]);
 //---------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 /**
-menu returns an integer that is inputted by the user.
+Takes no arguments
+Used printf and scanf for I/O. An if statement is used to detect if integer is valid.
+Returns an integer of range 1-5 that is inputted by the user.
 */
 int menu(void){
     while(1){
@@ -35,8 +36,11 @@ int menu(void){
 
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
-This function executes code that takes static string input and encripts using cypher key.
-This is achieved by adding the key value onto the char value, and moding the char value if it exceeded z.
+Takes arguments:
+    -char array (String1)[text to be encrypted]
+    -interger (key)[the value at which the alphabet is rotated]
+This function looks at each individual char value, and adds the key value to encrypt the message
+Returns nothing.
 */
 
 void encrypRotation(char String1[], int key){
@@ -55,8 +59,12 @@ void encrypRotation(char String1[], int key){
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
-This function executes code that takes static string input and decripts using cypher key.
-itter is used to tell the function if file Output should be printed
+Takes arguments:
+    -char array (String1) [text to be decripted]
+    -int key [the value of which the alphabet was rotated]
+    -int itter [if file output should be printed, 1 if yes, 2 if no]
+The exact same proccess as encryptRotation, however key value is minused and char values below 65 are adjusted.
+returns nothing
 */
 void decrypRotation(char String1[], int key, int itter){
     //E(m) = (m+k)mod26
@@ -80,7 +88,12 @@ void decrypRotation(char String1[], int key, int itter){
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
-This function executes code that takes static string input and encrips using substitution string.
+Takes arguments:
+    -char array (String1)  [text to be encrypted]
+    -char array (Sub) [26 long char key]
+Finds value of String char and replaces with respective char value in sub. It utilised Sub[]'s pointer to do this.
+Returns Nothing
+
 */
 void encryptSubstitution(char String1[], char sub[]){
     FILE *Output;
@@ -149,8 +162,12 @@ void encryptSubstitution(char String1[], char sub[]){
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
-This function executes code that takes static string input and decrips using substitution string.
-
+Takes arguments:
+    -char array (String1)  [text to be decrypted]
+    -char array (Sub) [26 long char key]
+compares each string1 char value with sub value, and once found to be equivelent,
+sub's pointer value is used to get respective char value.
+Returns Nothing
 */
 void decrypSubstitution(char String1[], char sub[]){
     FILE *Output;
@@ -170,11 +187,14 @@ void decrypSubstitution(char String1[], char sub[]){
 }
 //----------------------------------------------------------------------------------------------------------------------------------
 /**
+Takes arguments:
+    -char array (String1)  [text to be decripted]
 This function executes code that takes static string input and decrips through rotation method.
 A Known problem is that it assumes standard english is used via assuming e to be the most, or second most common char.
 This is not always the case e.g: Benjamin Young has n as the most common char.
 I have decided not to 'brute' force this, which will result in the printing of 26 text sets, and tackled the problem with the method above.
 A standard alphabet char array is used.
+Returns Nothing
 */
 void decrypRotNoKey(char String1[]){
     //To do this find most common letter, then suggest its e, apply same rotation to other texts
@@ -190,6 +210,7 @@ void decrypRotNoKey(char String1[]){
     int biggestCount2 = 0;
     int biggestCount3 = 0;
     //Tally up variable count
+
     for(int count = 0; count<=strlen(String1); count++){
         switch (String1[count]-64){
         case 1: alphabet[0]+=1;
