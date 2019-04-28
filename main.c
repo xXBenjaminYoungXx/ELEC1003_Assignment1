@@ -18,6 +18,7 @@ Program User Interface:(repeated in Input file)
 1       #[ROTATION KEY]
 2       [TEXT TO BE TRANSLATED]
 3       [SUBSTITUTION KEY]
+4       abcdefghijklmnopqrstuvwxyz
 
     Rotation Key:
         -Can be any integer. Will be moded by 26 and made positive

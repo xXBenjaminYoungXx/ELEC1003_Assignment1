@@ -47,7 +47,7 @@ void encrypRotation(char String1[], int key){
     //E(m) = (m+k)mod26
     FILE *Output;
     Output = fopen("Output", "w");
-    //replace char in String[count] by adding key
+    //replace char in String[count] by adding key, only do this if char is within alphabet
     for(int count = 0; count<10000; count++){
         if(String1[count]>=65&&String1[count]<=90){
             String1[count] = 65+(((String1[count])-65)+key)%26;
@@ -209,8 +209,8 @@ void decrypRotNoKey(char String1[]){
     int biggestCount=0;//used to track pointer with biggest value
     int biggestCount2 = 0;
     int biggestCount3 = 0;
-    //Tally up variable count
 
+    //Tally up variable count
     for(int count = 0; count<=strlen(String1); count++){
         switch (String1[count]-64){
         case 1: alphabet[0]+=1;
@@ -270,7 +270,7 @@ void decrypRotNoKey(char String1[]){
     }
     //Now to see which was highest count, second highest count and third highest count
     for(int count = 0; count<26;count++){
-        if(alphabet[count]>biggest){
+        if(alphabet[count]>biggest){//Transfere values for biggest 3 and 2 then adjust biggest
             biggest3 = biggest2;
             biggestCount3 = biggestCount2;
 
@@ -280,7 +280,7 @@ void decrypRotNoKey(char String1[]){
             biggest = alphabet[count];
             biggestCount = count;
         }
-        else if(alphabet[count]>biggest2){
+        else if(alphabet[count]>biggest2){//Transfere values for biggest 3 then adjust biggest2
             biggest3 = biggest2;
             biggestCount3 = biggestCount2;
 
