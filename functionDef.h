@@ -1,6 +1,7 @@
 #include<stdio.h>
 //---------------------------------------------------------------------------------------------------------------------------------------
 /*
+FINAL
 Benjamin Young
 c3330653
 BenjaminYoung7198@gmail.com
@@ -30,7 +31,7 @@ int menu(void){
         if(menuChoice>0&&menuChoice<6){
             return menuChoice;
         }
-        printf("\nError: Only 0-5 permitted.\n");
+        printf("\nError: Only 1-5 permitted.\n");
     }
 }
 
